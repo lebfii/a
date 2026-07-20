@@ -1,0 +1,53 @@
+//#9 selection sort
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+void selectionSort(long int a[], long int n)
+{
+    long int i, j, min, temp;
+
+    for(i = 0; i < n - 1; i++)
+    {
+        min = i;
+
+        for(j = i + 1; j < n; j++)
+        {
+            if(a[j] < a[min])
+                min = j;
+        }
+
+        temp = a[i];
+        a[i] = a[min];
+        a[min] = temp;
+    }
+}
+
+int main()
+{
+    long int a[10000];      // Fixed-size array
+    long int n = 5000, i;
+    int it;
+    clock_t start, end;
+
+    printf("A_size, Selection\n");
+
+    for(it = 0; it < 10; it++, n += 500)
+    {
+        // Fill array with random numbers
+        for(i = 0; i < n; i++)
+            a[i] = rand() % n + 1;
+
+        start = clock();
+
+        selectionSort(a, n);
+
+        end = clock();
+
+        printf("%ld, %f\n", n,
+               (double)(end - start) / CLOCKS_PER_SEC);
+    }
+
+    return 0;
+}
